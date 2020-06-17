@@ -1,0 +1,3 @@
+[submodule "Manta_Engine/Manta/vendor/spdlog"]
+	path = Manta_Engine/Manta/vendor/spdlog
+	url = https://github.com/gabime/spdlog
