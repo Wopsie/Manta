@@ -8,6 +8,8 @@ extern Manta::MantaApp* Manta::CreateApplication();
 int main(int argc, char** argv)
 {
 	Manta::Log::Init();
+#include "mntpch.h"
+#include "mntpch.h"
 
 	MNT_CORE_WARN("Initialized logger!");
 	int a = 5;

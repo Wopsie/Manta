@@ -1,3 +1,4 @@
+#include "mntpch.h"
 #include "MantaApp.h"
 
 #include "Manta/Events/ApplicationEvent.h"

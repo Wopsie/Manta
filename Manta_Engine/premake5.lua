@@ -18,6 +18,9 @@ project "Manta"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "mntpch.h"
+	pchsource "Manta/src/mntpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
