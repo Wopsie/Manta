@@ -10,6 +10,12 @@ workspace "Manta_Engine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- include directories relative to root folder
+IncludeDir = {}
+IncludeDir["GLFW"] = "Manta/vendor/GLFW/include"
+
+include "Manta/vendor/GLFW"
+
 project "Manta"
 	location "Manta"
 	kind "SharedLib"
@@ -30,9 +36,16 @@ project "Manta"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
 	}
 	
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
+	}
+
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../Core.h"
+#include "Manta/Core.h"
+#include <string>
+#include <functional>
 
 namespace Manta
 {

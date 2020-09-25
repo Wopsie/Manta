@@ -1,3 +1,6 @@
 [submodule "Manta_Engine/Manta/vendor/spdlog"]
 	path = Manta_Engine/Manta/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Manta_Engine/Manta/vendor/GLFW"]
+	path = Manta_Engine/Manta/vendor/GLFW
+	url = https://github.com/Wopsie/glfw
