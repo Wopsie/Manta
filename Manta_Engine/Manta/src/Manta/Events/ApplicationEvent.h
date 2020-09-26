@@ -2,6 +2,8 @@
 
 #include "Event.h"
 
+#include <sstream>
+
 namespace Manta
 {
 	class MANTA_API WindowResizeEvent : public Event

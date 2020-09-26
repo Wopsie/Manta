@@ -1,16 +1,18 @@
 #include "mntpch.h"
 #include "MantaApp.h"
 
-#include "Manta/Events/ApplicationEvent.h"
 #include "Manta/Log.h"
 
 #include <GLFW/glfw3.h>
 
 namespace Manta
 {
+#define BIND_EVENT_FN(x) std::bind(&MantaApp::x, this, std::placeholders::_1)
+	
 	MantaApp::MantaApp()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));	//research placeholders
 	}
 
 	MantaApp::~MantaApp()
@@ -28,5 +30,18 @@ namespace Manta
 		}
 	}
 
+	void MantaApp::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+
+		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClosed));
+		MNT_CORE_TRACE("{0}", e);
+	}
+
+	bool MantaApp::OnWindowClosed(WindowCloseEvent &e)
+	{
+		m_Running = false;
+		return true;
+	}
 
 }
