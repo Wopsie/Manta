@@ -1,11 +1,14 @@
 #include "mntpch.h"
 #include "WindowsWindow.h"
 
+
 #include "Manta/Log.h"
 
 #include "Manta/Events/ApplicationEvent.h"
 #include "Manta/Events/MouseEvent.h"
 #include "Manta/Events/KeyEvent.h"
+
+#include <glad/glad.h>
 
 namespace Manta
 {
@@ -51,6 +54,10 @@ namespace Manta
 
 		m_Window = glfwCreateWindow((int)props.width, (int)props.height, m_Data.title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		MNT_CORE_ASSERT(status, "Failed to initialize Glad!");
+		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

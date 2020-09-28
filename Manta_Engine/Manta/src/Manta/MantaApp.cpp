@@ -3,7 +3,7 @@
 
 #include "Manta/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Manta
 {
@@ -24,8 +24,10 @@ namespace Manta
 	{
 		while (m_Running)
 		{
-			//glClearColor(1, 0, 1, 1);
-			//glClear(GL_COLOR_BUFFER_BIT);
+			
+			
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
 			m_Window->OnUpdate();
 
 			for (Layer* layer: m_LayerStack)

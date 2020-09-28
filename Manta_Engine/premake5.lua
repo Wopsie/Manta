@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- include directories relative to root folder
 IncludeDir = {}
 IncludeDir["GLFW"] = "Manta/vendor/GLFW/include"
+IncludeDir["Glad"] = "Manta/vendor/Glad/include"
 
 include "Manta/vendor/GLFW"
+include "Manta/vendor/Glad"
 
 project "Manta"
 	location "Manta"
@@ -37,12 +39,14 @@ project "Manta"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 	
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -54,7 +58,8 @@ project "Manta"
 		defines
 		{
 			"MNT_PLATFORM_WINDOWS",
-			"MNT_BUILD_DLL"
+			"MNT_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
