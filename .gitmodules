@@ -4,3 +4,4 @@
 [submodule "Manta_Engine/Manta/vendor/GLFW"]
 	path = Manta_Engine/Manta/vendor/GLFW
 	url = https://github.com/Wopsie/glfw
+
