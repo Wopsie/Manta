@@ -14,9 +14,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Manta/vendor/GLFW/include"
 IncludeDir["Glad"] = "Manta/vendor/Glad/include"
+IncludeDir["ImGui"] = "Manta/vendor/imgui/include"
 
 include "Manta/vendor/GLFW"
 include "Manta/vendor/Glad"
+include "Manta/vendor/imgui"
 
 project "Manta"
 	location "Manta"
@@ -40,13 +42,15 @@ project "Manta"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 	
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
