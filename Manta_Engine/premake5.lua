@@ -14,7 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Manta/vendor/GLFW/include"
 IncludeDir["Glad"] = "Manta/vendor/Glad/include"
-IncludeDir["ImGui"] = "Manta/vendor/imgui/include"
+IncludeDir["ImGui"] = "Manta/vendor/imgui"
 
 include "Manta/vendor/GLFW"
 include "Manta/vendor/Glad"

@@ -8,9 +8,14 @@
 namespace Manta
 {
 #define BIND_EVENT_FN(x) std::bind(&MantaApp::x, this, std::placeholders::_1)
+
+	MantaApp* MantaApp::s_Instance = nullptr;
 	
 	MantaApp::MantaApp()
 	{
+		MNT_CORE_ASSERT(!s_Instance, "Manta Application already exists");
+		s_Instance = this;
+		
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));	//research placeholders
 	}
@@ -62,6 +67,7 @@ namespace Manta
 	void MantaApp::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	bool MantaApp::OnWindowClosed(WindowCloseEvent &e)
