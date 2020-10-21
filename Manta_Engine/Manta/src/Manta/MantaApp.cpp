@@ -29,16 +29,15 @@ namespace Manta
 	{
 		while (m_Running)
 		{
-			
-			
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
-			m_Window->OnUpdate();
 
 			for (Layer* layer: m_LayerStack)
 			{
 				layer->OnUpdate();
+				MNT_INFO("{0}", layer->GetName());
 			}
+			m_Window->OnUpdate();	//this mf
 		}
 	}
 
@@ -47,7 +46,7 @@ namespace Manta
 		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClosed));
-		MNT_CORE_TRACE("{0}", e);
+		//MNT_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -62,6 +61,7 @@ namespace Manta
 	void MantaApp::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void MantaApp::PushOverlay(Layer* layer)

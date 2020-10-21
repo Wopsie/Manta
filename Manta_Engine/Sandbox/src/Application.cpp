@@ -12,7 +12,7 @@ public:
 
 	void OnUpdate() override
 	{
-		MNT_INFO("ExampleLayer::Update");
+		//MNT_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Manta::Event& event) override
@@ -28,6 +28,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Manta::ImGuiLayer());
 	}
 
 	~Sandbox()
