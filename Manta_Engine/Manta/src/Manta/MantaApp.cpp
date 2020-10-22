@@ -35,7 +35,7 @@ namespace Manta
 			for (Layer* layer: m_LayerStack)
 			{
 				layer->OnUpdate();
-				MNT_INFO("{0}", layer->GetName());
+				//MNT_INFO("{0}", layer->GetName());
 			}
 			m_Window->OnUpdate();	//this mf
 		}

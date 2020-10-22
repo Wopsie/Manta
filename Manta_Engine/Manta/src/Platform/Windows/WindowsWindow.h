@@ -20,7 +20,7 @@ namespace Manta
 		inline unsigned int GetHeight() const override { return m_Data.height; };
 
 		// Window Attributes
-		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.eventCallback = callback; };
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; };
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 		
@@ -36,7 +36,7 @@ namespace Manta
 			unsigned int width = 0, height = 0;
 			bool vSync = false;
 
-			EventCallbackFn eventCallback;
+			EventCallbackFn EventCallback;
 		};
 
 		WindowData m_Data;
