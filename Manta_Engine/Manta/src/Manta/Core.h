@@ -10,6 +10,10 @@
 	#error Manta only supports windows!
 #endif
 
+#ifdef MNT_DEBUG
+	#define MNT_ENABLE_ASSERTS
+#endif
+
 #ifdef MNT_ENABLE_ASSERTS
 	#define MNT_ASSERT(x, ...) { if(!(x)) {MNT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define MNT_CORE_ASSERT(x, ...) { if(!(x)) {MNT_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } } 
