@@ -3,6 +3,8 @@
 
 #include "Manta/Log.h"
 
+#include "Input.h"
+
 #include <glad/glad.h>
 
 namespace Manta
@@ -37,6 +39,10 @@ namespace Manta
 				layer->OnUpdate();
 				//MNT_INFO("{0}", layer->GetName());
 			}
+
+			auto [x, y] = Input::GetMousePosition();
+			MNT_CORE_TRACE("{0}, {1}", x, y);
+			
 			m_Window->OnUpdate();	//this mf
 		}
 	}

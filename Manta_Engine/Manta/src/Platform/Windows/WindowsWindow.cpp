@@ -159,6 +159,7 @@ namespace Manta
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
+		
 	}
 
 	void WindowsWindow::OnUpdate()
