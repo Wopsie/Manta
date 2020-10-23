@@ -8,3 +8,4 @@
 [submodule "Manta_Engine/Manta/vendor/imgui"]
 	path = Manta_Engine/Manta/vendor/imgui
 	url = https://github.com/Wopsie/imgui
+
