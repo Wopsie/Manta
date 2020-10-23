@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Manta/vendor/GLFW/include"
 IncludeDir["Glad"] = "Manta/vendor/Glad/include"
 IncludeDir["ImGui"] = "Manta/vendor/imgui"
+IncludeDir["glm"] = "Manta/vendor/glm"
 
 include "Manta/vendor/GLFW"
 include "Manta/vendor/Glad"
@@ -36,7 +37,9 @@ project "Manta"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -45,7 +48,8 @@ project "Manta"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 	
 	links
@@ -105,7 +109,8 @@ project "Sandbox"
 	includedirs 
 	{
 		"Manta/vendor/spdlog/include",
-		"Manta/src"
+		"Manta/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links

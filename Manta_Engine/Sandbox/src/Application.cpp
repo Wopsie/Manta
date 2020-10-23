@@ -1,6 +1,5 @@
 #include <Manta.h>
 
-
 class ExampleLayer : public Manta::Layer
 {
 public:

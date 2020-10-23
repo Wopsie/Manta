@@ -9,3 +9,6 @@
 	path = Manta_Engine/Manta/vendor/imgui
 	url = https://github.com/Wopsie/imgui
 
+[submodule "Manta_Engine/Manta/vendor/glm"]
+	path = Manta_Engine/Manta/vendor/glm
+	url = https://github.com/g-truc/glm
