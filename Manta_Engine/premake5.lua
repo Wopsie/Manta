@@ -95,7 +95,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,6 +110,7 @@ project "Sandbox"
 	{
 		"Manta/vendor/spdlog/include",
 		"Manta/src",
+		"Manta/vendor",
 		"%{IncludeDir.glm}"
 	}
 

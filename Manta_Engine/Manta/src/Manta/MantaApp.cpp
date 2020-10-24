@@ -3,9 +3,9 @@
 
 #include "Manta/Log.h"
 
-#include "Input.h"
-
 #include <glad/glad.h>
+
+#include "Input.h"
 
 namespace Manta
 {
@@ -20,6 +20,9 @@ namespace Manta
 		
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));	//research placeholders
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	MantaApp::~MantaApp()
@@ -34,16 +37,22 @@ namespace Manta
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			//Update loop
 			for (Layer* layer: m_LayerStack)
 			{
 				layer->OnUpdate();
 				//MNT_INFO("{0}", layer->GetName());
 			}
 
-			auto [x, y] = Input::GetMousePosition();
-			MNT_CORE_TRACE("{0}, {1}", x, y);
+			//Render loop standin
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+			{
+				layer->OnImGuiRender();
+			}
+			m_ImGuiLayer->End();
 			
-			m_Window->OnUpdate();	//this mf
+			m_Window->OnUpdate();
 		}
 	}
 

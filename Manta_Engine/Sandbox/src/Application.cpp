@@ -1,5 +1,7 @@
 #include <Manta.h>
 
+//#include "imgui/imgui.h"
+
 class ExampleLayer : public Manta::Layer
 {
 public:
@@ -11,9 +13,15 @@ public:
 
 	void OnUpdate() override
 	{
-		//MNT_INFO("ExampleLayer::Update");
 		if(Manta::Input::IsKeyPressed(MNT_KEY_TAB))
 			MNT_INFO("Tab  key is pressed");
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		//ImGui::Begin("Test");
+		//ImGui::Text("Hello World");
+		//ImGui::End();
 	}
 
 	void OnEvent(Manta::Event& event) override
@@ -34,7 +42,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Manta::ImGuiLayer());
+		//PushOverlay(new Manta::ImGuiLayer());
 	}
 
 	~Sandbox()
