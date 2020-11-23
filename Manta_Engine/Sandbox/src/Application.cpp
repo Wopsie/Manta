@@ -1,5 +1,7 @@
 #include <Manta.h>
 
+#include "imgui/imgui.h"
+
 //#include "imgui/imgui.h"
 
 class ExampleLayer : public Manta::Layer
@@ -19,9 +21,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		//ImGui::Begin("Test");
-		//ImGui::Text("Hello World");
-		//ImGui::End();
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 	void OnEvent(Manta::Event& event) override
