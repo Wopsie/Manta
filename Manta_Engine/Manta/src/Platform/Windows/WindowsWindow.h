@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Manta/Window.h"
+#include "Manta/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
+
 
 struct GLFWwindow;
 
@@ -31,7 +33,8 @@ namespace Manta
 		virtual void Shutdown();
 		//
 		GLFWwindow* m_Window;
-
+		GraphicsContext* m_Context;
+		
 		struct WindowData
 		{
 			std::string title = "";

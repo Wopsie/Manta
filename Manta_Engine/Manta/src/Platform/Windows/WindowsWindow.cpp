@@ -8,7 +8,8 @@
 #include "Manta/Events/MouseEvent.h"
 #include "Manta/Events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
+
 
 namespace Manta
 {
@@ -41,7 +42,9 @@ namespace Manta
 		m_Data.width = props.width;
 		m_Data.height = props.height;
 
+		
 		MNT_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
+
 
 		if(!s_GLFWInitialized)
 		{
@@ -53,10 +56,10 @@ namespace Manta
 		}
 
 		m_Window = glfwCreateWindow((int)props.width, (int)props.height, m_Data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
+		m_Context = new OpenGLContext(m_Window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		MNT_CORE_ASSERT(status, "Failed to initialize Glad!");
+		m_Context->Init();
+		//
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -165,7 +168,7 @@ namespace Manta
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
