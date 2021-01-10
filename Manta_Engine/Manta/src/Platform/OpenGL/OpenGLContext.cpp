@@ -19,6 +19,11 @@ namespace Manta
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		MNT_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		MNT_CORE_INFO("OpenGL Info:");
+		MNT_CORE_INFO("   Vendor: {0}", glGetString(GL_VENDOR));
+		MNT_CORE_INFO("   Renderer: {0}", glGetString(GL_RENDERER));
+		MNT_CORE_INFO("   Version: {0}", glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffers()
