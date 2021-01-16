@@ -7,12 +7,12 @@ namespace Manta
 	{
 	public:
 
-		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-		~Shader();
+		//Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		virtual ~Shader() {};
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
-		
-		void Bind() const;
-		void Unbind() const;
+		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 	private:
 		uint32_t m_RendererID;	
 		
