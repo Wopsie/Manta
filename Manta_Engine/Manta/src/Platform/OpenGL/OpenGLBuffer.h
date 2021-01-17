@@ -11,9 +11,18 @@ namespace Manta
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const BufferLayout& GetLayout() const override
+		{
+			return m_Layout;
+		};
+		virtual void SetLayout(const BufferLayout& a_Layout) override
+		{
+			m_Layout = a_Layout;
+		};
 	private:
 		uint32_t m_RendererID;
-		
+		BufferLayout m_Layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer

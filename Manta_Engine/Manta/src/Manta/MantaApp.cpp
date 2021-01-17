@@ -12,6 +12,27 @@ namespace Manta
 #define BIND_EVENT_FN(x) std::bind(&MantaApp::x, this, std::placeholders::_1)
 
 	MantaApp* MantaApp::s_Instance = nullptr;
+
+	//temp
+	static GLenum ShaderDataTypeToOpenGLType(ShaderDataType a_Type)
+	{
+		switch (a_Type)
+		{
+			case ShaderDataType::FLOAT:		return GL_FLOAT;
+			case ShaderDataType::FLOAT2:	return GL_FLOAT;
+			case ShaderDataType::FLOAT3:	return GL_FLOAT;
+			case ShaderDataType::FLOAT4:	return GL_FLOAT;
+			case ShaderDataType::MAT3:		return GL_FLOAT;
+			case ShaderDataType::MAT4:		return GL_FLOAT;
+			case ShaderDataType::INT:		return GL_INT;
+			case ShaderDataType::INT2:		return GL_INT;
+			case ShaderDataType::INT3:		return GL_INT;
+			case ShaderDataType::INT4:		return GL_INT;
+			case ShaderDataType::BOOL:		return GL_BOOL;
+		}
+		MNT_CORE_ASSERT(false, "Shader type conversion failed");
+		return 0;
+	}
 	
 	MantaApp::MantaApp()
 	{
@@ -28,16 +49,40 @@ namespace Manta
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 		
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 
+			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		{	// go out of scope for cleanliness
+			BufferLayout layout = {
+				{ ShaderDataType::FLOAT3, "a_Position" },
+				{ ShaderDataType::FLOAT4, "a_Color" }
+			};
+			
+			m_VertexBuffer->SetLayout(layout);
+		}
+		
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffer->GetLayout();
+		for (const auto element : layout)
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(
+				index, 
+				element.GetComponentCount(), 
+				ShaderDataTypeToOpenGLType(element.m_Type), 
+				element.m_Normalized ? GL_TRUE : GL_FALSE, 
+				layout.GetStride(),
+				(const void*)element.m_Offset
+			);
+			index++;
+			
+		}
+		
 
 		uint32_t indices[3] = { 0,1,2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
@@ -46,12 +91,15 @@ namespace Manta
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
 
 			out vec3 v_Position;
+			out vec4 v_Color;
 		
 			void main()
 			{
 				v_Position = a_Position;
+				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
 		)";
@@ -62,10 +110,12 @@ namespace Manta
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			in vec4 v_Color;
 		
 			void main()
 			{
 				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
 			}
 		)";
 
