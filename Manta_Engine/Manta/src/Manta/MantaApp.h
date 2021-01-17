@@ -7,6 +7,7 @@
 
 #include "Manta/ImGui/ImGuiLayer.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
 
 //temp
 #include "Manta/Renderer/Shader.h"
@@ -38,11 +39,13 @@ namespace Manta
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-		
+		//unsigned int m_VertexArray;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+
+		std::shared_ptr<VertexArray> m_SquareVertexArray;
+		std::shared_ptr<Shader> m_SquareShader;
+
 		static MantaApp* s_Instance;
 	};
 

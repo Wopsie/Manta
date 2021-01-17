@@ -18,9 +18,6 @@ namespace Manta
 		case RenderAPI::OPENGL:
 			return new OpenGLVertexBuffer(a_Vertices, a_Size);
 			break;
-		default:
-			MNT_CORE_ASSERT(false, "Default; return nullptr");
-			return nullptr;
 		}
 
 		MNT_CORE_ASSERT(false, "idk wtf render api");
