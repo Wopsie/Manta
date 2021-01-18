@@ -3,9 +3,8 @@
 
 #include "Manta/Log.h"
 
-#include <glad/glad.h>
-
 #include "Input.h"
+#include "Renderer/Renderer.h"
 
 
 namespace Manta
@@ -13,8 +12,6 @@ namespace Manta
 #define BIND_EVENT_FN(x) std::bind(&MantaApp::x, this, std::placeholders::_1)
 
 	MantaApp* MantaApp::s_Instance = nullptr;
-
-	
 	
 	MantaApp::MantaApp()
 	{
@@ -27,7 +24,7 @@ namespace Manta
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		//triangle
+		//triangle///////////////////////////////////////////////////////
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 
 			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
@@ -147,26 +144,25 @@ namespace Manta
 
 	MantaApp::~MantaApp()
 	{
-		//m_Shader->Unbind();
-		//m_VertexBuffer->Unbind();
-		//m_IndexBuffer->Unbind();
 	}
 
 	void MantaApp::Run()
 	{
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::Clear({ 0.2f, 0.2f, 0.2f, 1 });
+			
+			Renderer::BeginScene();
 
-			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			m_SquareShader->Bind();
-			m_SquareVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVertexArray);	//to be overloaded
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);	//to be overloaded
+			
+			Renderer::EndScene();
+
+			//Renderer::Flush();	//??
 			
 			//Update loop
 			for (Layer* layer: m_LayerStack)

@@ -11,11 +11,11 @@ namespace Manta
 		//query which API is being used
 		switch(Renderer::GetAPI())
 		{
-		case RenderAPI::NONE:
+		case RendererAPI::API::NONE:
 			MNT_CORE_ASSERT(false, "API not supported; return nullptr");
 			return nullptr;
 			break;
-		case RenderAPI::OPENGL:
+		case RendererAPI::API::OPENGL:
 			return new OpenGLVertexBuffer(a_Vertices, a_Size);
 			break;
 		}
@@ -30,11 +30,11 @@ namespace Manta
 		//query which API is being used
 		switch (Renderer::GetAPI())
 		{
-		case RenderAPI::NONE:
+		case RendererAPI::API::NONE:
 			MNT_CORE_ASSERT(false, "API not supported; return nullptr");
 			return nullptr;
 			break;
-		case RenderAPI::OPENGL:
+		case RendererAPI::API::OPENGL:
 			return new OpenGLIndexBuffer(a_Indices, a_Size);
 			break;
 		default:

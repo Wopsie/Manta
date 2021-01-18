@@ -1,22 +1,18 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 namespace Manta
 {
-	enum class RenderAPI
-	{
-		NONE = 0,
-		OPENGL = 1,
-		DIRECTX = 2,
-		VULKAN = 3,
-	};
-
 	
 	class Renderer
 	{
 	public:
-		inline static RenderAPI GetAPI() { return s_RenderAPI; }
-	private:
-		inline static RenderAPI s_RenderAPI = RenderAPI::OPENGL;
+		static void BeginScene(); //take in scene parameters
+		static void EndScene();
+		static void Submit(const std::shared_ptr<VertexArray>& a_VertexArray);
+		
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 }
 
