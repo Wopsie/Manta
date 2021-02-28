@@ -12,6 +12,8 @@ namespace Manta
 		
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual void UploadUniformMat4(const std::string& a_Name, const glm::mat4& a_Matrix) override;
 	private:
 		uint32_t m_RendererID;
 	};

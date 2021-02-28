@@ -11,6 +11,8 @@
 
 //temp
 #include "Manta/Renderer/Shader.h"
+#include "Renderer/OrthographicCamera.h"
+
 
 namespace Manta
 {
@@ -46,6 +48,8 @@ namespace Manta
 		std::shared_ptr<VertexArray> m_SquareVertexArray;
 		std::shared_ptr<Shader> m_SquareShader;
 
+		OrthographicCamera m_OrthoCam;
+		
 		static MantaApp* s_Instance;
 	};
 

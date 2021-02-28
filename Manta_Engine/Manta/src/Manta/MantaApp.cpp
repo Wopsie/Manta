@@ -14,6 +14,7 @@ namespace Manta
 	MantaApp* MantaApp::s_Instance = nullptr;
 	
 	MantaApp::MantaApp()
+		: m_OrthoCam(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		MNT_CORE_ASSERT(!s_Instance, "Manta Application already exists");
 		s_Instance = this;
@@ -82,6 +83,8 @@ namespace Manta
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+		
 			out vec3 v_Position;
 			out vec4 v_Color;
 		
@@ -89,7 +92,7 @@ namespace Manta
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -116,12 +119,14 @@ namespace Manta
 			
 			layout(location = 0) in vec3 a_Position;
 
+			uniform mat4 u_ViewProjection;
+		
 			out vec3 v_Position;
 		
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -151,15 +156,13 @@ namespace Manta
 		while (m_Running)
 		{
 			RenderCommand::Clear({ 0.2f, 0.2f, 0.2f, 1 });
-			
-			Renderer::BeginScene();
 
-			m_SquareShader->Bind();
-			Renderer::Submit(m_SquareVertexArray);	//to be overloaded
-
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);	//to be overloaded
+			m_OrthoCam.SetPosition(glm::vec3(0.5f, 0.5f, 0.0f));
+			m_OrthoCam.SetRotation(45.0f);
 			
+			Renderer::BeginScene(m_OrthoCam);
+			Renderer::Submit(m_SquareShader, m_SquareVertexArray);	//to be overloaded
+			Renderer::Submit(m_Shader, m_VertexArray);	//to be overloaded
 			Renderer::EndScene();
 
 			//Renderer::Flush();	//??
@@ -180,9 +183,6 @@ namespace Manta
 			m_ImGuiLayer->End();
 			
 			m_Window->OnUpdate();
-
-			m_Shader->Unbind();
-
 		}
 	}
 

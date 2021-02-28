@@ -21,8 +21,9 @@ public:
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
+		ImGui::Begin("Ass");
+		ImGui::Text("Pussy Deluxe");
+		ImGui::Text("David is in goeie handen");
 		ImGui::End();
 	}
 

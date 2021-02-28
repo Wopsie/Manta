@@ -3,6 +3,8 @@
 
 #include <glad/glad.h>
 
+#include "glm/gtc/type_ptr.hpp"
+
 namespace Manta
 {
 	OpenGLShader::OpenGLShader(const std::string& a_VertexSrc, const std::string& a_FragmentSrc)
@@ -129,5 +131,12 @@ namespace Manta
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::UploadUniformMat4(const std::string& a_Name, const glm::mat4& a_Matrix)
+	{
+		//retrieve uniform inside shader to write to
+		GLint uniLocation = glGetUniformLocation(m_RendererID, a_Name.c_str());
+		glUniformMatrix4fv(uniLocation, 1, GL_FALSE, glm::value_ptr(a_Matrix));
 	}
 }
