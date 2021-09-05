@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Manta/Core.h"
+#include "Manta/Core/Timestep.h"
 #include "Manta/Events/Event.h"
 
 namespace Manta
@@ -13,7 +14,7 @@ namespace Manta
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep a_TS) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

@@ -6,18 +6,13 @@
 #include "Manta/Events/ApplicationEvent.h"
 
 #include "Manta/ImGui/ImGuiLayer.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
 
-//temp
-#include "Manta/Renderer/Shader.h"
-#include "Renderer/OrthographicCamera.h"
-
+#include "Manta/Core/Timestep.h"
 
 namespace Manta
 {
 
-	class MANTA_API MantaApp
+	class MantaApp
 	{
 	public:
 		MantaApp();
@@ -41,15 +36,7 @@ namespace Manta
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		//unsigned int m_VertexArray;
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<VertexArray> m_SquareVertexArray;
-		std::shared_ptr<Shader> m_SquareShader;
-
-		OrthographicCamera m_OrthoCam;
-		
+		float m_PrevFrameTime = 0.0f;
 		static MantaApp* s_Instance;
 	};
 
