@@ -15,11 +15,12 @@ namespace Manta
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& a_Shader, const std::shared_ptr<VertexArray>& a_VertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& a_Shader, const std::shared_ptr<VertexArray>& a_VertexArray, const glm::mat4& a_Transform)
 	{
 		//would do instancing/batching here
 		a_Shader->Bind();
 		a_Shader->UploadUniformMat4("u_ViewProjection", m_SceneData->m_ViewProjectionMatrix);
+		a_Shader->UploadUniformMat4("u_Transform", a_Transform);
 		a_VertexArray->Bind();
 		RenderCommand::DrawIndexed(a_VertexArray);
 	}
